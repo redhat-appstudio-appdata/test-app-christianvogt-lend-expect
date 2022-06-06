@@ -20,6 +20,13 @@ spec:
         pipelines.appstudio.openshift.io/type: build
       creationTimestamp: null
       generateName: 1-nodejs-
+      labels:
+        build.appstudio.openshift.io/application: test-app
+        build.appstudio.openshift.io/build: "true"
+        build.appstudio.openshift.io/component: 1-nodejs
+        build.appstudio.openshift.io/type: build
+        build.appstudio.openshift.io/version: "0.1"
+        pipelines.appstudio.openshift.io/type: build
       namespace: christianvogt
     spec:
       params:
@@ -32,15 +39,12 @@ spec:
       - name: path-context
         value: .
       pipelineRef:
-        bundle: quay.io/redhat-appstudio/build-templates-bundle:fb1a1291cff78de06353a9748532a826f3a557f7
+        bundle: quay.io/redhat-appstudio/build-templates-bundle:7170560e64e33af5fc37ba01531cbefdd2dc4fce
         name: docker-build
       workspaces:
       - name: workspace
         persistentVolumeClaim:
           claimName: appstudio
         subPath: 1-nodejs/$(tt.params.git-revision)
-      - name: registry-auth
-        secret:
-          secretName: redhat-appstudio-registry-pull-secret
     status: {}
 status: {}
